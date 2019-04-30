@@ -1,0 +1,23 @@
+import tweepy
+from tweepy.streaming import StreamListener
+from tweepy import OAuthHandler
+from tweepy import Stream
+
+access_token = "MY ACCESS TOKEN"
+access_token_secret = "MY ACCESS TOKEN SECRET"
+consumer_key = "MY CONSUMER KEY"
+consumer_secret = "MY CONSUMER SECRET"
+
+auth = tweepy.auth.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+
+api = tweepy.API(auth)
+
+#fetch recent 100 tweets containing words GOT, Game of Thrones, HBO's GOT, GoT, Winterfell, Battle of Winterfell, Night King, Arya Stark
+fetched_tweets = api.search(q=['Game of Thrones','GOT','HBO GOT','Winterfell','Battle of Winterfell'], result_type='recent', lang='en', count=100)
+print ("Number of tweets:"),len(fetched_tweets)
+
+# print the tweet text
+for tweet in fetched_tweets:
+    print ('Tweet ID:'),tweet.id
+print ('Tweet Text:'), tweet.text, '\n'
